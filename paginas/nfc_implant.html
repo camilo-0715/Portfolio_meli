@@ -1,0 +1,282 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>NFC implant</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+                                                                <a href="file:///home/camilo/Escritorio/Portfolio/index.html" class="logo">
+
+                                        <span class="symbol"><img src="images/logo.png" alt="" /></span><span class="title">J.Camilo Carmona</span>
+                                    </a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+				<nav id="menu">
+					<h2>Menu</h2>
+					<ul>
+						<li><a href="file:///home/camilo/Escritorio/Portfolio/index.html">Home</a></li>
+						<li><a href="CARLA.html">CARLA Project</a></li>
+						<li><a href="kombatbots.html">KombatBots</a></li>
+						<li><a href="mario.html">Mario Project</a></li>
+						<li><a href="nfc_implant.html">NFC Implant</a></li>
+						<li><a href="wheelchair.html">Wheelchair Project</a></li>
+					</ul>
+				</nav>	
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>NFC implant</h1>
+							<span class="image main"><img src="images/pic13.jpg" alt="" /></span>
+							<p>Probably my favourite and most exiting project is the installation of an NFC implant in my left hand. This endeavor represents a perfect blend of my passion for innovative technology and transhumanism. In my free time, I engage deeply in developing and refining a diverse range of software and functionalities for this implant. My efforts have transformed it into a highly versatiletool.</p>
+
+							<p>This tiny yet powerful device now enables me to perform a variety of impressive and innovative tasks with a simple scan. unlocking intelligent doors, controlling spotify music, controlling my house lights, and carrying my contact details are only some of the features that I have programmed so far</p>
+
+							<p>The development and enhancement of the functionalities of this NFC implant have been an incredibly fulfilling journey, serving as a prime example of the intimate integration of technology into our daily lives. This project aligns perfectly with my passion for transhumanism and biorobotics. I am deeply committed to leveraging technology to advance the human race, believing firmly in its potential to enhance and expand our capabilities. This NFC implant is a step towards that future, symbolizing the fusion of wearable and implantable technology with our human potential.</p>
+
+						</div>
+					</div>
+					<!-- Installation of the Implant Section -->
+					<div id="implant installation">
+						<div class="inner">
+							<h1>Installation of the Implant</h1>
+							<p>There are various installation methods depending on the implant and its size. My particular implant is a small capsule-shaped device, which came inside a pre-sterilized syringe. Therefore, the installation simply involved inserting the needle under the skin and pressing the syringe to deposit the implant inside the body. Then, the needle is withdrawn, and the wound is left to heal so that the implant becomes trapped within the skin. In addition to the syringe, the implant package includes gloves, bandages, and all sorts of useful tools for implant installation, all pre-sterilized.</p>
+							
+							<p>Despite the installation process being minimally invasive and the wound caused by the needle being small, it still inflicts some damage to the body, which requires a recovery period. In my case, right after the installation, the area where the implant was placed swelled slightly, accompanied by mild pain, especially when making abrupt hand movements. Both the pain and swelling gradually subsided over the days, and about a week after the installation, the area was completely recovered. As for the opening left by the needle in the hand, it took a day to close. However, even today I still have a mark on my hand from the needle wound.</p>
+						</div>
+					</div>
+
+					<div style="text-align: center;">
+						<figure style="display: inline-block; margin-bottom: 45px;">
+							<img src="thumbs/implant_on_skin.jpg" alt="Implant After Installation" style="width: 100%; max-width: 800px; display: block;">
+							<figcaption style="font-style: italic; font-size: 17px; margin-top: 5px;">Implant After Installation</figcaption>
+						</figure>
+					</div>
+					<br>
+					<div id="implant installation">
+						<div class="inner">
+							<p>As depicted in the image above, the implant is clearly visible beneath the skin, yet it neither causes discomfort nor pain. In fact, it is so inconspicuous that you can easily forget it's even there.</p>							
+						</div>
+					</div>
+					
+					<!-- Implant Features Section -->
+					<div id="implant-features">
+						<div class="inner">
+							<h1>Implant Features</h1>
+							<h2>Slides controller</h2>
+							<p>Some time after intalling the implant I came up with the idea of developing an application to control presentation slides with my mobile device, making the presentation more engaging and dynamic. This idea turned out to be a great success, and I will provide some documentation on how it works below.</p>
+							
+							<p>First, let's explain how the program functions, as the chip has NFC connectivity but no WiFi or any other type. Therefore, we cannot communicate directly with our slide viewer from our chip. Instead, we'll introduce a program in our mobile device, which we'll configure in such a way that when our mobile reads the NFC chip, it executes a script via SSH on the computer where we have our presentation, to advance a slide.</p>
+
+							<p>In my case, my mobile device runs on iOS, so this part was quite straightforward. iOS has shortcuts - small actions that our phone can perform when triggered by something, which can be configured, like touching a button on the mobile or an icon on the screen. In my case, the trigger is the mobile scanning my chip. Within the shortcuts, there is an action which is precisely to execute a script via SSH. So, by entering the necessary data to connect to my computer and the path to the script, I completed the phone part. On the other hand, the script in charge of advancing the slide is a Python 3 script designed for LibreOffice Impress, as it is open-source and offers an API for interacting with the application.</p>
+
+							<p>The following is an example of the Python script used:</p>
+							
+
+							<pre><code class="language-python">
+import socket
+import uno
+
+# get the uno component context from the PyUNO runtime
+localContext = uno.getComponentContext()
+
+# create the UnoUrlResolver
+resolver = localContext.ServiceManager.createInstanceWithContext("com.sun.star.bridge.UnoUrlResolver", localContext)
+
+# connect to the running office
+ctx = resolver.resolve("uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext")
+smgr = ctx.ServiceManager
+
+# get the central desktop object
+desktop = smgr.createInstanceWithContext("com.sun.star.frame.Desktop",ctx)
+
+# access the current writer document
+model = desktop.getCurrentComponent()
+
+# Access the presentation and controller
+Presentation = model.Presentation
+controller = Presentation.Controller
+controller.gotoNextSlide()
+							</pre></code>
+
+							<p>In the video below, you can see thi functionality of the NFC implant in action.</p>
+						</div>
+					</div>				
+
+					<div style="text-align: center;">
+						<div style="max-width: 800px; margin: 0 auto;">
+							<video width="auto" height="700" style="margin-bottom: 45px;" controls>
+								<source src="thumbs/slider_passer.mp4" type="video/mp4">
+								Your browser does not support the video tag.
+							</video>
+						</div>
+					</div>
+
+					<div>
+						<div class="inner">
+							<p>For a more detailed and extended demonstration, be sure to check out the video on my social media. <a href="https://vm.tiktok.com/ZGeMaR6g7/" target="_blank" style="color: #3366FF; text-decoration: none; font-weight: bold;">Click here to view it.</a></p>
+						</div>
+					</div>
+
+					<div id="implant-features">
+						<div class="inner">
+
+
+
+							<h2>Spotify Music Controller</h2>
+							<p>This project extends the functionality of the implant to control music playback on Spotify. By scanning the implant in my hand, a script is triggered which connects to my PC via SSH. This script then interfaces with Spotify's API to control music playback, allowing for actions like stopping music that is currently playing.</p>
+							<p>The technology leverages the power of the Spotify API, providing a seamless and futuristic way to control music playback. This integration exemplifies the versatile applications of the implant beyond basic tasks, paving the way for more innovative and personal uses of this technology.</p>
+							
+							<p>The following is the script used to stop music on Spotify using the implant:</p>
+							<pre><code class="language-python">
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
+import time
+
+# Configuración de la autorización con la API de Spotify
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id='2aaeebe6a249493096bbd4d91e5ce444',
+	client_secret='6805625d0d60434da7ca5729728b60e3',
+	redirect_uri='http://localhost:6000/callback',
+	scope='user-read-playback-state,user-modify-playback-state'))
+
+# Obtener el estado actual de la reproducción
+current_track = sp.current_playback()
+
+# Si se está reproduciendo una canción, pausarla
+if current_track and current_track["is_playing"]:
+	sp.pause_playback()
+	print("Canción pausada")
+# Si la canción está detenida, reproducirla
+elif current_track and not current_track["is_playing"]:
+	sp.start_playback()
+	print("Canción iniciada")
+# Si no se está reproduciendo nada, imprimir un mensaje de error
+else:
+	print("No se está reproduciendo nada en este momento")
+
+# Esperar un segundo para que la API de Spotify pueda actualizarse
+time.sleep(0.1)
+
+# Obtener el nuevo estado de la reproducción
+current_track = sp.current_playback()
+
+# Imprimir el título de la canción actual
+if current_track and current_track["item"]:
+	print(f"Reproduciendo ahora: {current_track['item']['name']}")
+	
+					</pre></code>
+
+
+					<p>In the video below, you can see thi functionality of the NFC implant in action.</p>
+
+					</div>
+						</div>
+
+					<div style="text-align: center;">
+						<div style="max-width: 800px; margin: 0 auto;">
+							<video width="auto" height="700" style="margin-bottom: 45px;" controls>
+								<source src="thumbs/spotify_controller.mp4" type="video/mp4">
+								Your browser does not support the video tag.
+							</video>
+						</div>
+					</div>
+
+					<div>
+						<div class="inner">
+							<p>For a more detailed and extended demonstration, be sure to check out the video on my social media. <a href="https://vm.tiktok.com/ZGeMa2Ju1/" target="_blank" style="color: #3366FF; text-decoration: none; font-weight: bold;">Click here to view it.</a></p>
+						</div>
+					</div>
+
+					<div>
+						<div class="inner">
+							<h2>Presentation card</h2>
+							<p>Another exciting functionality of the NFC implant is its ability to act as a digital presentation card. I have programmed the implant to store specific information that, when scanned, triggers a notification on the smartphone. This notification leads directly to this website or to a linktree containing all my pertinent information, such as contact details, professional portfolio, and social media links.</p>
+							<p>This feature is particularly useful in networking scenarios, making the exchange of contact information seamless and futuristic. Instead of traditional business cards, a simple scan of the implant can provide a much richer and more interactive experience.</p>							
+							<p>For a demonstration od how this functionality works, check out this video on my social media. <a href="https://vm.tiktok.com/ZGeMayj4J/" target="_blank" style="color: #3366FF; text-decoration: none; font-weight: bold;">Click here to view it.</a></p>
+
+
+							<h2>Digital key</h2>
+							<p>I am currently working on a groundbreaking feature that will transform my NFC implant into a digital key. This feature involves the integration of the implant with a smart lock system for my house. The plan is to install an intelligent lock that operates with an NFC key, and then clone the key's data onto the implant in my hand. This will allow me to unlock my house door simply by scanning my hand over the lock.</p>
+        
+							<p>In addition to my house, I'm also modifying my car's lock system. This modification involves installing a small antenna connected to an Arduino, which in turn is linked to the car's electrical lock system. Once complete, this setup will enable me to unlock my car in a similar fashion, by just scanning my hand. This project represents a significant step towards a more integrated and tech-savvy lifestyle, where everyday actions are enhanced through the power of NFC technology and personal biohacking.</p>
+					
+							<p>Stay tuned for updates and demonstrations on how these features work upon completion!</p>
+
+						</div>
+					</div>
+
+
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>Get in touch</h2>
+								<form method="post" action="#">
+									<div class="fields">
+										<div class="field half">
+											<input type="text" name="name" id="name" placeholder="Name" />
+										</div>
+										<div class="field half">
+											<input type="email" name="email" id="email" placeholder="Email" />
+										</div>
+										<div class="field">
+											<textarea name="message" id="message" placeholder="Message"></textarea>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="Send" class="primary" /></li>
+									</ul>
+								</form>
+							</section>
+							<section>
+								<h2>Follow</h2>
+								<ul class="icons">
+									<li><a href="https://www.tiktok.com/@j.camilo_cs?_t=8ivTY023NBI&_r=1" class="icon brands style2  fa-tiktok"><span class="label">Tiktok</span></a></li>
+									<li><a href="https://www.instagram.com/j.camilo.cs/" class="icon brands style2  fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="https://github.com/camilo-0715" class="icon brands style2  fa-github"><span class="label">Github</span></a></li>
+									<li><a href="mailto:juancamilocarmonasanchez@gmail.com" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+								</ul>
+							</section>
+							<ul class="copyright">
+								<li>&copy; Juan Camilo Carmona Sanchez 2024. All rights reserved.</li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>			
+
+	</body>
+</html>
